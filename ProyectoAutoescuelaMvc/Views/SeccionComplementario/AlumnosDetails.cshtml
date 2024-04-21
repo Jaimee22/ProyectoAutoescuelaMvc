@@ -1,0 +1,45 @@
+﻿@model ProyectoAutoescuelaMvc.Models.AlumnoCompleto
+<link rel="stylesheet" href="~/css/inicio.css" asp-append-version="true" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+@{
+    ViewData["Title"] = "Detalles del Alumno";
+}
+
+
+<a style="text-decoration:none;" href="javascript:history.back()" class="btn-volver">
+    <i class="fas fa-arrow-left" style="margin-right: 5px;"></i>
+</a>
+
+<h1 class="titulo-h1">Detalles del Alumno</h1>
+
+<table class="table table-striped">
+    <tr>
+        <th>Nombre</th>
+        <td>@Model.Nombre</td>
+    </tr>
+    <tr>
+        <th>Apellido</th>
+        <td>@Model.Apellido</td>
+    </tr>
+    <tr>
+        <th>Fecha de Nacimiento</th>
+        <td>@Model.FechaNacimiento</td>
+    </tr>
+    <tr>
+        <th>Nombre de la Autoescuela</th>
+        <td>@Model.NombreAutoescuela</td>
+    </tr>
+    <tr>
+        <th>Nombre de la Sección</th>
+        <td>@Model.NombreSeccion</td>
+    </tr>
+    <tr>
+        <th>Nombre del Permiso</th>
+        <td>@Model.NombrePermiso</td>
+    </tr>
+    <tr>
+        <th>Nombre del Profesor</th>
+        <td>@Model.NombreProfesor</td>
+    </tr>
+</table>

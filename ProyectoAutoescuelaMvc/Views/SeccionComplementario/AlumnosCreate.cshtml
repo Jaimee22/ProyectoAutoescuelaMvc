@@ -1,0 +1,56 @@
+﻿@model ProyectoAutoescuelaMvc.Models.Alumno
+
+<link rel="stylesheet" href="~/css/inicio.css" asp-append-version="true" />
+
+
+<a href="javascript:history.back()" class="btn-volver">
+    <i class="fas fa-arrow-left" style="margin-right: 5px;"></i>
+</a>
+
+
+<h1 class="titulo-h1">Insertar Alumno</h1>
+
+@if (ViewData["Mensaje"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @ViewData["Mensaje"]
+    </div>
+}
+
+<form asp-action="InsertarAlumnoCompleto" method="post">
+    <div class="form-group">
+        <label for="Nombre">Nombre:</label>
+        <input type="text" id="Nombre" name="Nombre" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label for="Apellido">Apellido:</label>
+        <input type="text" id="Apellido" name="Apellido" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label for="FechaNacimiento">Fecha de Nacimiento:</label>
+        <input type="date" id="FechaNacimiento" name="FechaNacimiento" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label for="VehiculoId">Vehículo ID:</label>
+        <input type="text" id="VehiculoId" name="VehiculoId" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label for="AutoescuelaId">Autoescuela ID:</label>
+        <input type="text" id="AutoescuelaId" name="AutoescuelaId" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label for="SeccionId">Sección ID:</label>
+        <input type="text" id="SeccionId" name="SeccionId" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label for="ProfesorId">Profesor ID:</label>
+        <input type="text" id="ProfesorId" name="ProfesorId" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label for="PermisoId">Permiso ID:</label>
+        <input type="text" id="PermisoId" name="PermisoId" class="form-control" required>
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary">Insertar Alumno</button>
+</form>
+

@@ -1,0 +1,101 @@
+﻿@model IEnumerable<ProyectoAutoescuelaMvc.Models.AlumnoCompleto>
+@{
+    ViewData["Title"] = "Alumnos";
+}
+
+<link rel="stylesheet" href="~/css/inicio.css" asp-append-version="true" />
+<link rel="stylesheet" href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" />
+<script src="https://unpkg.com/gridjs/dist/gridjs.production.min.js"></script>
+
+<style>
+    .btn-insertar-profesor {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    }
+</style>
+
+
+<a href="javascript:history.back()" class="btn-volver">
+    <i class="fas fa-arrow-left" style="margin-right: 5px;"></i>
+</a>
+
+<h1 class="titulo-h1">Alumnos</h1>
+
+<a asp-controller="SeccionComplementario" asp-action="AlumnosCreate" class="btn btn-primary btn-insertar-profesor">Nuevo Alumno</a>
+
+<div id="grid"></div>
+
+@section scripts {
+    <script>
+        new gridjs.Grid({
+            columns: [
+                {
+                    name: 'alumnoId',
+                    header: 'ID del Alumno',
+                    hidden: true // Oculta la columna
+                },
+                { name: 'nombre', header: 'Nombre' },
+                { name: 'apellido', header: 'Apellido' },
+                {
+                    name: '',
+                    formatter: (_, row) => gridjs.html(`
+                                <a href="#" class="btn btn-primary" onclick="redirectToDetails(${row.cells[0].data})">Ver Detalles</a>
+                                <a href="#" class="btn btn-danger" onclick="confirmDelete(${row.cells[0].data})">Eliminar</a>
+                            `)
+                }
+            ],
+            data: @Html.Raw(Json.Serialize(Model)),
+            pagination: true,
+            search: true,
+            sort: true,
+            language: {
+                'search': {
+                    'placeholder': 'Buscar...'
+                },
+                'pagination': {
+                    'previous': 'Anterior',
+                    'next': 'Siguiente',
+                    'showing': 'Mostrando del',
+                    'results': () => 'resultados',
+                    'to': 'al',
+                    'of': 'de',
+                    'An error happened while fetching the data': 'No se pueden mostrar los datos'
+                },
+                'noRecordsFound': 'No se encontraron resultados'
+            }
+        }).render(document.getElementById('grid'));
+
+        function redirectToDetails(alumnoId) {
+            window.location.href = `@Url.Action("AlumnosDetails", "SeccionComplementario")?id=${alumnoId}`;
+        }
+
+        function confirmDelete(alumnoId) {
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: '¡No podrás revertir esto!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Sí, eliminarlo'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    eliminarAlumno(alumnoId);
+                }
+            });
+        }
+
+        async function eliminarAlumno(alumnoId) {
+            const response = await fetch(`/SeccionComplementario/EliminarAlumno?id=${alumnoId}`, {
+                method: 'POST'
+            });
+
+            if (response.ok) {
+                location.reload();
+            } else {
+                console.error('Error al eliminar el alumno');
+            }
+        }
+    </script>
+}

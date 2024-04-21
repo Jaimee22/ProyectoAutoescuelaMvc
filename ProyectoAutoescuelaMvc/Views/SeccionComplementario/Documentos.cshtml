@@ -1,0 +1,75 @@
+﻿@model IEnumerable<ProyectoAutoescuelaMvc.Models.Documento>
+
+<link rel="stylesheet" href="~/css/inicio.css" asp-append-version="true" />
+
+<a href="javascript:history.back()" class="btn-volver">
+    <i class="fas fa-arrow-left" style="margin-right: 5px;"></i>
+</a>
+
+<style>
+    .btn-insertar-documento {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    }
+
+    .titulo-h1 {
+        margin-top: 50px; /* Ajuste del margen superior para adaptarse al diseño */
+    }
+</style>
+
+<a asp-action="InsertarDocumento" asp-controller="SeccionComplementario" class="btn btn-primary btn-insertar-documento">
+    Insertar Documento
+</a>
+
+<h1 class="titulo-h1">Documentación</h1>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Nombre Documento</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var documento in Model)
+                {
+                    <tr>
+                        <td>@documento.NombreDocumento</td>
+                        <td><a asp-action="MostrarPDFenPagina" asp-controller="SeccionComplementario" class="btn btn-primary">Ver Documento</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+
+<a class="btn btn-primary" asp-controller="SeccionComplementario" asp-action="MostrarPDFenPagina" target="_blank">Ver PDF en página</a>
+<br />
+<br />
+<embed src="@Url.Action("MostrarPDFenPagina", "SeccionComplementario")" width="1000" height="700" type="application/pdf" />
+
+@section scripts {
+    <script>
+        // Función para manejar el cambio en el elemento select
+        document.getElementById('secciones').addEventListener('change', function () {
+            var seccionId = this.value; // Obtener el valor seleccionado
+            // Enviar una solicitud POST al servidor para guardar el valor en la sesión
+            fetch('/Usuario/GuardarSeccionId', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: 'seccionId=' + encodeURIComponent(seccionId)
+            })
+                .then(response => {
+                    // Actualizar la página para reflejar el cambio en la sesión
+                    location.reload();
+                })
+                .catch(error => {
+                    console.error('Error al actualizar la sesión:', error);
+                });
+        });
+    </script>
+}

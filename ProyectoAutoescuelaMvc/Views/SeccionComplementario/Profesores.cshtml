@@ -1,0 +1,124 @@
+﻿@model IEnumerable<ProyectoAutoescuelaMvc.Models.Profesor>
+
+<link rel="stylesheet" href="~/css/inicio.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/cards.css" asp-append-version="true" /> <!-- Agrega tu archivo de estilos para las tarjetas -->
+@{
+    ViewData["Title"] = "Profesores";
+
+    // Obtener el ID de la sección seleccionada de la sesión
+    var idSeccionSeleccionada = Context.Session.GetInt32("SeccionId");
+
+    // Filtrar los profesores para eliminar duplicados
+    var profesoresFiltrados = Model.GroupBy(p => p.ProfesorId)
+                                   .Select(g => g.First())
+                                   .ToList();
+}
+
+<a href="javascript:history.back()" class="btn-volver">
+    <i class="fas fa-arrow-left" style="margin-right: 5px;"></i>
+</a>
+
+<style>
+    .btn-insertar-profesor {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    }
+
+    .titulo-h1 {
+        margin-top: 50px; /* Ajuste del margen superior para adaptarse al diseño */
+    }
+
+    .content-card-inicio {
+        margin-top: 10px; /* Ajuste del margen superior para adaptarse al diseño */
+    }
+</style>
+
+<a asp-action="InsertarProfesor" asp-controller="SeccionComplementario" class="btn btn-primary btn-insertar-profesor">
+    Insertar Profesor
+</a>
+
+<h1 class="titulo-h1">Profesores</h1>
+
+
+<div class="container">
+    <div class="card-inicio-container">
+        @foreach (var profesor in profesoresFiltrados)
+        {
+            <div class="card-inicio">
+                <img src="/images/Profesor.png" alt="Imagen de ejemplo">
+                <div class="content-card-inicio">
+                    <h2>@profesor.Nombre @profesor.Apellido</h2>
+                    <button class="btn-eliminar btn btn-danger" onclick="eliminarProfesor(@profesor.ProfesorId)">Eliminar</button>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        document.getElementById('secciones').addEventListener('change', function () {
+            var seccionId = this.value; // Obtener el valor seleccionado
+            // Enviar una solicitud POST al servidor para guardar el valor en la sesión
+            fetch('/Usuario/GuardarSeccionId', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: 'seccionId=' + encodeURIComponent(seccionId)
+            })
+                .then(response => {
+                    // Actualizar la página para reflejar el cambio en la sesión
+                    location.reload();
+                })
+                .catch(error => {
+                    console.error('Error al actualizar la sesión:', error);
+                });
+        });
+
+        function eliminarProfesor(profesorId) {
+            // Mostrar el cuadro de diálogo de confirmación
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: 'Una vez eliminado, no podrás recuperar este profesor.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Si el usuario confirma la eliminación, enviar la solicitud de eliminación al servidor
+                    fetch(`/SeccionComplementario/EliminarProfesor?id=${profesorId}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json' // Agregar la cabecera Content-Type
+                        }
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                // Si la eliminación es exitosa, mostrar una alerta de éxito
+                                Swal.fire('¡Eliminado!', 'El profesor ha sido eliminado.', 'success')
+                                    .then(() => {
+                                        // Después de cerrar la alerta, redirigir a la página de Profesores
+                                        window.location.href = '/SeccionComplementario/Profesores';
+                                    });
+                            } else {
+                                // Si hay un error, mostrar una alerta de error
+                                Swal.fire('Error', data.error, 'error');
+                            }
+                        })
+                        .catch(error => {
+                            // Si hay un error en la solicitud, mostrar una alerta de error
+                            console.error('Error al eliminar el profesor:', error);
+                            Swal.fire('¡Eliminado!', 'El profesor ha sido eliminado.', 'success')
+                            window.location.href = '/SeccionComplementario/Profesores';
+                            // Swal.fire('Error', 'Se produjo un error al eliminar el profesor.', 'error');
+                        });
+                }
+            });
+        }
+
+    </script>
+}

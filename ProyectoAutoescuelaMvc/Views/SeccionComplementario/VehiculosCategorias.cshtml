@@ -1,0 +1,79 @@
+﻿@model IEnumerable<ProyectoAutoescuelaMvc.Models.VehiculoCategoria>
+
+<link rel="stylesheet" href="~/css/inicio.css" asp-append-version="true" />
+
+<a href="javascript:history.back()" class="btn-volver">
+    <i class="fas fa-arrow-left" style="margin-right: 5px;"></i>
+</a>
+
+<style>
+    .btn-insertar-vehiculo {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    }
+
+    .titulo-h1 {
+        margin-top: 50px; /* Ajuste del margen superior para adaptarse al diseño */
+    }
+</style>
+
+<a asp-action="InsertarVehiculo" asp-controller="SeccionComplementario" class="btn btn-primary btn-insertar-vehiculo">
+    Insertar Vehículo
+</a>
+
+<h1 class="titulo-h1">Vehículos</h1>
+
+@if (Model != null && Model.Any())
+{
+    <div class="container">
+        <div class="card-inicio-container">
+            @foreach (var categoria in Model)
+            {
+                <div class="card-inicio">
+                    @if (categoria.CategoriaId == 1)
+                    {
+                        <a style="text-decoration: none;" href="@Url.Action("CargarCoches", "SeccionComplementario")" class="card-link">
+                            <img src="/images/Coche.png" class="card-img-top" alt="Imagen Coche">
+                            <div class="content-card-inicio">
+                                <h2>@categoria.Nombre</h2>
+                            </div>
+                        </a>
+                    }
+                    else if (categoria.CategoriaId == 2)
+                    {
+                        <img src="/images/Moto.png" class="card-img-top" alt="Imagen Moto">
+                        <div class="content-card-inicio">
+                            <h2>@categoria.Nombre</h2>
+                        </div>
+                    }
+                    else if (categoria.CategoriaId == 3)
+                    {
+                        <img src="/images/Ciclomotor.png" class="card-img-top" alt="Imagen Ciclomotor">
+                        <div class="content-card-inicio">
+                            <h2>@categoria.Nombre</h2>
+                        </div>
+                    }
+                    else if (categoria.CategoriaId == 4)
+                    {
+                        <img src="/images/Camion.png" class="card-img-top" alt="Imagen Camión">
+                        <div class="content-card-inicio">
+                            <h2>@categoria.Nombre</h2>
+                        </div>
+                    }
+                    else if (categoria.CategoriaId == 5)
+                    {
+                        <img src="/images/Autobus.png" class="card-img-top" alt="Imagen Autobús">
+                        <div class="content-card-inicio">
+                            <h2>@categoria.Nombre</h2>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+}
+else
+{
+    <p>No se encontraron categorías de vehículos.</p>
+}

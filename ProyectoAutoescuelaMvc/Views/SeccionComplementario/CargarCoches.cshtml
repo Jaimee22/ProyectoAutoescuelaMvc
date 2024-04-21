@@ -1,0 +1,48 @@
+﻿@model List<ProyectoAutoescuelaMvc.Models.Coche>
+<link rel="stylesheet" href="~/css/inicio.css" asp-append-version="true" />
+
+<a href="javascript:history.back()" class="btn-volver">
+    <i class="fas fa-arrow-left" style="margin-right: 5px;"></i>
+</a>
+
+<h1 class="titulo-h1">Listado de Coches</h1>
+
+<div class="table-responsive">
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                @* <th scope="col">ID</th> *@
+                <th scope="col">Fecha Alta</th>
+                @* <th scope="col">Fecha Baja</th> *@
+                <th scope="col">Matrícula</th>
+                @* <th scope="col">ITV</th> *@
+                <th scope="col">Fecha Anterior ITV</th>
+                <th scope="col">Fecha Próxima ITV</th>
+                <th scope="col">Seguro</th>
+                @* <th scope="col">Imagen</th> *@
+                <th scope="col">Modelo</th>
+                <th scope="col">Marca</th>
+                @* <th scope="col">Vehículo ID</th> *@
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var coche in Model)
+            {
+                <tr>
+                    @* <td>@coche.IdCoche</td> *@
+                    <td>@coche.FechaAlta</td>
+                    @* <td>@coche.FechaBaja</td> *@
+                    <td>@coche.Matricula</td>
+                    @* <td>@coche.ITV</td> *@
+                    <td>@coche.FechaAnteriorITV</td>
+                    <td>@coche.FechaProximaITV</td>
+                    <td>@coche.Seguro</td>
+                    @* <td>@coche.Imagen</td> *@
+                    <td>@coche.Modelo</td>
+                    <td>@coche.Marca</td>
+                    @* <td>@coche.VehiculoId</td> *@
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

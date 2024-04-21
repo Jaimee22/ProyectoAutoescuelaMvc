@@ -1,0 +1,98 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Arimo&family=Poppins&display=swap">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
+</head>
+<body class="fondo">
+    <div class="sign-in-container">
+        <div class="sign-column s1">
+            <div class="sign-column-face s2">
+                <div class="s3">
+                    <div class="sign-header-section">
+                        <div class="sign-in-title">
+                            Iniciar Sesión
+                        </div>
+                        <div class="sign-in-title-alt">
+                            @*  Lorem ipsum dolor sit amet *@
+                        </div>
+                    </div>
+                    @*  <div class="sign-buttons">
+                    <a href="#" class="login-w-button">
+                    <img width="18" height="18" src="https://img.icons8.com/color/48/google-logo.png" alt="google-logo" />
+                    <span>Sign in with Google</span>
+                    </a>
+                    <a href="#" class="login-w-button">
+                    <img width="18" height="18" src="https://img.icons8.com/ios-filled/50/mac-os.png" alt="mac-os" />
+                    <span>Sign in with Apple</span>
+                    </a>
+                    </div>
+                    <div class="slice-container">
+                    <div class="slice-text-c">
+                    <div class="slicer"></div>
+                    <div class="slice-text">Or with email</div>
+                    </div>
+                    </div> *@
+                    <form method="post" class="input-container">
+                        <label>Correo:</label>
+                        <input type="text" name="username" class="form-control" />
+
+                        <label>Contraseña:</label>
+                        <input type="password" name="password" class="form-control" />
+
+                        <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                    </form>
+
+                    @if (ViewData["MENSAJE"] != null)
+                    {
+                        <div class="alert alert-danger mt-3">
+                            @ViewData["MENSAJE"]
+                        </div>
+                    }
+                    @*  <form class="input-container">
+                    <input type="email" required placeholder="Email">
+                    <input type="password" required placeholder="Passowrd">
+                    <a href="#" class="alt-f">
+                    Forgot Password ?
+                    </a>
+                    <button>
+                    Sign in
+                    </button>
+                    <div href="#" class="alt-f-full">
+                    Not a Member yet ?
+                    <a href="sign-up.html" class="alt-f">
+                    Sign up
+                    </a>
+                    </div>
+                    </form> *@
+                </div>
+            </div>
+        </div>
+        <div class="sign-column w2">
+            <div class="intro-p">
+                <div class="canvas-logo">
+                    <img class="imagen-logo" src="/images/Logotipo.png" alt="logo">
+                </div>
+                @*  <div class="intro-content">
+                <div class="intro-title">
+                Lorem ipsum dolor sit amet
+                </div>
+                </div> *@
+            </div>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>

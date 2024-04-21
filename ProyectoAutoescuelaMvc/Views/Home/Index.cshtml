@@ -1,0 +1,114 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+
+    // var userId = Context.Session.GetInt32("UserId");
+    // if (userId == null)
+    // {
+    //     // Si la sesión no está establecida, mostrar un mensaje de error y redirigir al usuario mediante una meta redirección HTTP
+    //     <p>No tiene permiso para acceder a esta página. Será redirigido a la página de inicio de sesión en unos segundos.</p>
+    //     <meta http-equiv="refresh" content="5;url=/Managed/Login" />
+            //     return;
+    // }
+}
+<link rel="stylesheet" href="~/css/inicio.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
+
+
+<div class="container">
+
+    <div class="btn-container">
+        <a asp-controller="Managed" asp-action="Logout" class="btn-inicio-logout">
+            <div class="sign"><svg viewBox="0 0 512 512"><path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path></svg></div>
+            <div class="text">Cerrar Sesión</div>
+        </a>
+    </div>
+
+    @*   <h1>Bienvenido a la Página de Inicio </h1> *@
+    <br />
+    <br />
+    <br />
+
+    <div class="card-inicio-container">
+        <div class="card-inicio" onclick="redirect('Alumnos')">
+            <img src="/images/CardAlumno.png" alt="Imagen de ejemplo">
+            <div class="content-card-inicio">
+                <h2>Alumnos</h2>
+            </div>
+        </div>
+
+        <div class="card-inicio" onclick="redirect('VehiculosCategorias')">
+            <img src="/images/CardVehiculo.png" alt="Imagen de ejemplo">
+            <div class="content-card-inicio">
+                <h2>Vehículos</h2>
+            </div>
+        </div>
+
+        <div class="card-inicio" onclick="redirect('Profesores')">
+            <img src="/images/CardProfesor.png" alt="Imagen de ejemplo">
+            <div class="content-card-inicio">
+                <h2>Profesores</h2>
+            </div>
+        </div>
+
+        <div class="card-inicio" onclick="redirect('Documentos')">
+            <img src="/images/CardDocumento.png" alt="Imagen Card Documento">
+            <div class="content-card-inicio">
+                <h2>Documentación</h2>
+            </div>
+        </div>
+
+    </div>
+
+    @*     <div class="row">
+
+    <div class="col-md-3 mb-4">
+    <div class="card">
+    <div class="card-body">
+    <h5 class="card-title">Alumnos</h5>
+    <p class="card-text">Descripción breve de los alumnos.</p>
+    <a class="btn btn-primary" asp-controller="SeccionComplementario" asp-action="Alumnos">Gestionar Alumnos</a>
+    </div>
+    </div>
+    </div>
+
+    <div class="col-md-3 mb-4">
+    <div class="card">
+    <div class="card-body">
+    <h5 class="card-title">Documentación</h5>
+    <p class="card-text">Descripción breve de la documentación.</p>
+    <a class="btn btn-primary" asp-area="" asp-controller="SeccionComplementario" asp-action="Index">Gestionar Documentos</a>
+    </div>
+    </div>
+    </div>
+
+    <div class="col-md-3 mb-4">
+    <div class="card">
+    <div class="card-body">
+    <h5 class="card-title">Profesores</h5>
+    <p class="card-text">Descripción breve de los profesores.</p>
+    <button type="submit" class="btn btn-primary">Ver Profesores</button>
+    </div>
+    </div>
+    </div>
+
+    <div class="col-md-3 mb-4">
+    <div class="card">
+    <div class="card-body">
+    <h5 class="card-title">Vehículos</h5>
+    <p class="card-text">Descripción breve de los vehículos.</p>
+    <button type="submit" class="btn btn-primary">Ver Vehiculos</button
+    </div>
+    </div>
+    </div>
+    </div>*@
+
+</div>
+
+
+
+
+<script>
+    function redirect(action) {
+        window.location.href = '/SeccionComplementario/' + action;
+    }
+</script>
